@@ -1,0 +1,105 @@
+<% include ../header %>
+	 <h2 class="text-center">Example 3.3: zxcvbn demo</h2>
+    <div class="alert alert-info text-center">Give your users realtime feedback on password strength using <a href="https://github.com/lowe/zxcvbn">zxcvbn</a></div>
+      <form class="form-signin" method="POST">
+      	<h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" class="form-control" placeholder="Email address" name="username" required autofocus tabindex="1">
+        <div class="control-group">
+          <input type="password" class="form-control" placeholder="Password" name="password" required tabindex="2">
+          <div class="alert alert-info" id="outputBox"></div>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" tabindex="4">Sign in</button>
+      </form>
+
+      <script src="/vendor/jquery/jquery-2.0.3.min.js"></script>
+      <script src="/vendor/zxcvbn/zxcvbn.js"></script>
+      <script>
+        $(document).ready(function(){
+       	  var outputBox = $("#outputBox");
+       	  outputBox.hide();
+          // With jQuery, it's easy to find password boxes
+          // with or without element ids
+          var passwordField = $("input[type='password']");
+          passwordField.change(function(){
+          	var password = passwordField.val();
+          	if(password)
+          	{
+	          	var result = zxcvbn(password);
+	          	if(result.score <= 1)
+	          	{
+	          		outputBox.addClass("alert-danger");
+	          		outputBox.removeClass("alert-warning");
+	          		outputBox.removeClass("alert-info");
+	          	}
+	          	else if (result.score > 1 && result.score <= 3)
+	          	{
+	          		outputBox.removeClass("alert-danger");
+	          		outputBox.addClass("alert-warning");
+	          		outputBox.removeClass("alert-info");
+	          	}
+	          	else{
+	          		outputBox.removeClass("alert-danger");
+	          		outputBox.removeClass("alert-warning");
+	          		outputBox.addClass("alert-info");
+	          	}
+	          	outputBox.html("Your password score is <strong>" + result.score + " / 4</strong> and we estimate it can be cracked in " + result.crack_time_display + " (" + result.crack_time + " seconds).<br/>For demo purposes, your password is '" + result.password + "'");
+	          	outputBox.show();
+	        }
+	        else
+	        {
+	        	outputBox.hide();
+	        }
+          });
+        })
+      </script>
+      </div> <!-- /container -->
+         <hr/>
+      <h1>Sample code</h1>
+    <pre class="brush: xml">
+      &lt;script src=&quot;/vendor/jquery/jquery-2.0.3.min.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;/vendor/zxcvbn/zxcvbn.js&quot;&gt;&lt;/script&gt;
+      &lt;script&gt;
+    </pre>
+    <pre class="brush: jscript">
+        $(document).ready(function(){
+       	  var outputBox = $("#outputBox");
+       	  outputBox.hide();
+          // With jQuery, it's easy to find password boxes
+          // with or without element ids
+          var passwordField = $("input[type='password']");
+          passwordField.change(function(){
+          	var password = passwordField.val();
+          	if(password)
+          	{
+	          	var result = zxcvbn(password);
+	          	if(result.score <= 1)
+	          	{
+	          		outputBox.addClass("alert-danger");
+	          		outputBox.removeClass("alert-warning");
+	          		outputBox.removeClass("alert-info");
+	          	}
+	          	else if (result.score > 1 && result.score <= 3)
+	          	{
+	          		outputBox.removeClass("alert-danger");
+	          		outputBox.addClass("alert-warning");
+	          		outputBox.removeClass("alert-info");
+	          	}
+	          	else{
+	          		outputBox.removeClass("alert-danger");
+	          		outputBox.removeClass("alert-warning");
+	          		outputBox.addClass("alert-info");
+	          	}
+	          	outputBox.html("Your password score is <strong>" + result.score + " / 4</strong> and we estimate it can be cracked in " + result.crack_time_display + " (" + result.crack_time + " seconds).<br/>For demo purposes, your password is '" + result.password + "'");
+	          	outputBox.show();
+	        }
+	        else
+	        {
+	        	outputBox.hide();
+	        }
+          });
+        })
+    </pre>
+    <pre class="brush: xml">
+      &lt;/script&gt;
+    </pre>
+<% include ../footer %>

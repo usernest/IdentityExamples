@@ -1,0 +1,76 @@
+<% include ../header %>
+   <h2 class="text-center">Example 1.4: Bcrypt encryption</h2>
+    <% if(error) { %>
+    <div class="alert alert-danger text-center"><%= error %></div>
+    <% } %>
+      <form class="form-signin" method="POST">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" class="form-control" placeholder="Email address" name="username" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" name="password" required>
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+</div> <!-- /container -->
+      <hr/>
+      <h1>Sample code</h1>
+    <pre class="brush: jscript">
+// There are two main options for bcrypt:
+// (JS-only) https://npmjs.org/package/bcrypt-nodejs
+// (Wrapper for Unix Program) https://github.com/ncb000gt/node.bcrypt.js.git
+// 
+// In this example we use the javascript-only version because it makes the
+// examples more portable with fewer dependencies
+var bcrypt    = require('bcrypt-nodejs'),
+  authLib   = require('./auth-lib.js');
+
+// This is the in-memory users table
+var users = {
+  "joe": {
+    pw: "$2a$10$zJB7bPPzjmRlnC45L3OpTeLnBUEhHtXTqqXeUcpf1rPQFrjvMwL9K",
+    salt: "usable security"
+  }
+};
+
+// This method illustrates using bcrypt with passwords
+// Some in the security field believe strongly that hashing
+// is no longer acceptable
+module.exports.authenticate = function(username, password){
+  if(users[username])
+  {
+    try
+    {
+      // We still recommend salting passwords to ensure the greatest
+      // entropy that is stored in bcrypt
+      var submittedPassword = password + users[username].salt;
+      var actualPassword = users[username].pw;
+
+      // NEVER NEVER NEVER
+      // NEVER NEVER NEVER
+      // NEVER NEVER NEVER
+      // NEVER log passwords or security tokens
+      var demoOnlySubmittedPassword = bcrypt.hashSync(submittedPassword);
+      console.log("Checking submitted password bcrypt '" + demoOnlySubmittedPassword + "' with actual password bcrypt '" + actualPassword + "'");
+
+      if(actualPassword && (bcrypt.compareSync(submittedPassword, actualPassword)))
+      {
+        return authLib.LoginOK(username);
+      }
+      else
+      {
+        return authLib.BadPassword(username);
+      }
+    }catch(e)
+    {
+      console.log(e);
+      return authLib.BadPassword(username);
+    }
+  }
+  else
+  {
+    return authLib.BadUsername();
+  }
+}
+    </pre>
+<% include ../footer %>

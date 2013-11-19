@@ -1,0 +1,87 @@
+<% include ../header %>
+	 <h2 class="text-center">Example 2.5: reCAPTHA</h2>
+	  <% if(error) { %>
+		<div class="alert alert-danger text-center"><%= error %></div>
+	  <% } %> 
+      <form class="form-signin" method="POST">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" class="form-control" placeholder="Email address" name="username" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" name="password" required>
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <% if (showCaptcha){ %>
+        <div class="row text-center">
+        <script type="text/javascript"
+           src="https://www.google.com/recaptcha/api/challenge?k=<%-keys.recaptcha.publicKey %>">
+        </script>
+        <noscript>
+           <iframe src="https://www.google.com/recaptcha/api/noscript?k=<%-keys.recaptcha.publicKey %>"
+               height="300" width="500" frameborder="0" tabindex="4"></iframe><br>
+           <textarea name="recaptcha_challenge_field" rows="3" cols="40">
+           </textarea>
+           <input type="hidden" name="recaptcha_response_field"
+               value="manual_challenge">
+        </noscript>
+        </div>
+        <% } %>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+      </div> <!-- /container -->
+      <hr/>
+      <h1>Sample code</h1>
+    <pre class="brush: xml">
+&lt;script type=&quot;text/javascript&quot;
+     src=&quot;https://www.google.com/recaptcha/api/challenge?k=&lt;%-keys.recaptcha.publicKey %&gt;&quot;&gt;
+  &lt;/script&gt;
+  &lt;noscript&gt;
+     &lt;iframe src=&quot;https://www.google.com/recaptcha/api/noscript?k=&lt;%-keys.recaptcha.publicKey %&gt;&quot;
+         height=&quot;300&quot; width=&quot;500&quot; frameborder=&quot;0&quot; tabindex=&quot;4&quot;&gt;&lt;/iframe&gt;&lt;br&gt;
+     &lt;textarea name=&quot;recaptcha_challenge_field&quot; rows=&quot;3&quot; cols=&quot;40&quot;&gt;
+     &lt;/textarea&gt;
+     &lt;input type=&quot;hidden&quot; name=&quot;recaptcha_response_field&quot;
+         value=&quot;manual_challenge&quot;&gt;
+  &lt;/noscript&gt;
+    </pre>
+    <h2>Verify JavaScript</h2>
+    <pre class="brush: jscript">
+// There isn't an official nodejs verify library from Google
+// but there are some notable ones in npm
+var q = require('q');
+var http = require('http');
+
+module.exports.verifyCaptcha = function(keys, ipAddress, challenge, response){
+  var deferred = q.defer();
+  http.get(
+    "http://www.google.com/recaptcha/api/verify"
+    + "?privatekey=" + keys.recaptcha.privateKey
+    + "&amp;remoteip=" + ipAddress
+    + "&amp;challenge=" + challenge
+    + "&amp;response=" + response,
+    function(res) {
+    var pageData = "";
+    res.setEncoding('utf8');
+    res.on('data', function (chunk) {
+      pageData += chunk;
+    });
+
+    res.on('end', function(){
+      if(pageData &amp;&amp; pageData.indexOf('true') == 0)
+      {
+        console.log("Google approves of the captcha response");
+        deferred.resolve(true);
+      }
+      else
+      {
+        deferred.reject("CAPTCHA_FAILED");
+      }
+    });
+
+  }).on('error', function(e) {
+    deferred.reject(e);
+  });
+
+  return deferred.promise;
+};
+    </pre>
+<% include ../footer %>

@@ -1,0 +1,51 @@
+<% include ../header %>
+	 <h2 class="text-center">Example 2.3: Malicious JavaScript</h2>
+	  <% if(error) { %>
+		<div class="alert alert-danger text-center"><%= error %></div>
+	  <% } %> 
+      <form class="form-signin" method="POST">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" class="form-control" placeholder="Email address" name="username" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" name="password" required>
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+
+      <div class="alert alert-danger text-center lead" id="jsOutput"></div>
+
+      <script src="/vendor/jquery/jquery-2.0.3.min.js"></script>
+      <script>
+        // This script could be loaded inadvertently from a CDN if you aren't careful
+        // The best way to mitigate this threat is to host all vendor libraries locally
+        $(document).ready(function(){
+          var output = $("#jsOutput");
+
+          // With jQuery, it's easy to find password boxes
+          // with or without element ids
+          var passwordField = $("input[type='password']");
+          passwordField.change(function(){
+            output.html("Your password is: '" + passwordField.val() + "'");
+          })
+        })
+      </script>
+
+</div> <!-- /container -->
+      <hr/>
+      <h1>Sample code</h1>
+    <pre class="brush: jscript">
+// This script could be loaded inadvertently from a CDN if you aren't careful
+// The best way to mitigate this threat is to host all vendor libraries locally
+$(document).ready(function(){
+  var output = $("#jsOutput");
+
+  // With jQuery, it's easy to find password boxes
+  // with or without element ids
+  var passwordField = $("input[type='password']");
+  passwordField.change(function(){
+    output.html("Your password is: '" + passwordField.val() + "'");
+  })
+})
+    </pre>
+<% include ../footer %>

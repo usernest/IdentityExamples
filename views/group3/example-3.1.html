@@ -1,0 +1,23 @@
+<% include ../header %>
+	 <h2 class="text-center">Example 3.1: Tabstops and autofocus</h2>
+	  <div class="alert alert-info">More information on making your site accessible: <a href="http://www.w3.org/WAI/intro/accessibility.php">http://www.w3.org/WAI/intro/accessibility.php</a></div>
+      <form class="form-signin" method="POST">
+      	<h2 class="form-signin-heading">Please sign in</h2>
+        <i>Add "autofocus" to the username field so the cursor begins here</i>
+        <input type="text" class="form-control" placeholder="Email address" name="username" required autofocus tabindex="1">
+        <i>Add tabindex to username, password, checkbox, and submit buttons</i>
+        <input type="password" class="form-control" placeholder="Password" name="password" required tabindex="2">
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me" tabindex="3"> Remember me
+        </label>
+        <i>Make sure that the button is type "submit" so people can hit return to log in.</i>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" tabindex="4">Sign in</button>
+      </form>
+      </div> <!-- /container -->
+      <hr/>
+      <h1>Sample code</h1>
+    <pre class="brush: xml">
+&lt;input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Email address&quot; name=&quot;username&quot; required autofocus tabindex=&quot;1&quot;&gt;
+&lt;button class=&quot;btn btn-lg btn-primary btn-block&quot; type=&quot;submit&quot; tabindex=&quot;4&quot;&gt;Sign in&lt;/button&gt;
+    </pre>
+<% include ../footer %>

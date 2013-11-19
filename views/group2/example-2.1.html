@@ -1,0 +1,36 @@
+<% include ../header %>
+   <h2 class="text-center">Example 2.1: Force SSL</h2>
+    <% if(error) { %>
+    <div class="alert alert-danger text-center"><%= error %></div>
+    <% } %>
+      <form class="form-signin" method="POST">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" class="form-control" placeholder="Email address" name="username" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" name="password" required>
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+</div> <!-- /container -->
+      <hr/>
+      <h1>Sample code</h1>
+    <pre class="brush: jscript">
+// In this demo, there is no SSL, the request will always fail
+// But this is how you check that the request was made
+// 
+// If you are running behind a reverse proxy like nginx,
+// you would then need to check headers set by the proxy
+if(!req.connection.encrypted || req.get('x-forwarded-proto') || req.get('X-Forwarded-Proto'))
+{
+  bag.error = "Must submit using SSL";
+  res.render('group1/example-group1.html', bag);
+  // alternatively, you could redirect using an absolute URL
+  // res.redirect(302, "https://127.0.0.1/example-2.1.html")
+}
+else
+{
+  res.render('group1/example-group1.html', bag);  
+}
+    </pre>
+<% include ../footer %>

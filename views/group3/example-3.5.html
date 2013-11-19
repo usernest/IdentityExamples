@@ -1,0 +1,123 @@
+<% include ../header %>
+	<div ng-app>
+	 <h2 class="text-center">Example 3.5: AngularJS login form</h2>
+	 <div ng-controller="loginCtrl">
+		 <div id="login-form" ng-show="showLogin">
+		 	<div id="error" class="alert alert-danger" ng-show="error">{{error}}</div>
+	      <form class="form-signin" method="POST" ng-submit="doLogin()">
+	      	<h2 class="form-signin-heading">Please sign in</h2>
+	        <input type="text" class="form-control" placeholder="Email address" ng-model="username" name="username" id="username" required autofocus tabindex="1">
+	        <div class="control-group">
+	          <input type="password" class="form-control" placeholder="Password" ng-model="password" name="password" id="password" required tabindex="2">
+	        </div>
+	        <button class="btn btn-primary" type="submit">Log in</button>
+	      </form>
+	     </div>
+
+	     <div class="text-center" ng-hide="showLogin">
+	     	<button id="login-button" class="btn btn-primary" ng-click="displayLogin()">Log in</button>
+	     </div>
+	     <div class="text-center">
+	     	<div id="resultBox" class="alert alert-info" ng-show="user">User = {{user}}</div>
+	     </div>
+	 </div>
+
+	 <script src="/vendor/jquery/jquery-2.0.3.min.js"></script>
+      <script src="/vendor/angularjs/angular.min.js"></script>
+      <script>
+      	function loginCtrl($scope, $http){
+      		$scope.username = "";
+      		$scope.password = "";
+      		$scope.user = null;
+      		$scope.error = null;
+      		$scope.showLogin = false;
+
+      		$scope.displayLogin = function(){
+      			$scope.user = null;
+      			$scope.showLogin = true;
+      			$("#username").focus();
+      		}
+
+      		$scope.doLogin = function(){
+				$http.post('/example-3.5.html', {
+					username: $scope.username,
+					password: $scope.password
+				}, null).success(function(data, status, headers, config) {
+					$scope.user = data.id;
+					$scope.showLogin = false;
+					$scope.username = "";
+					$scope.password = "";
+					$scope.error = null;
+				}).
+				error(function(data, status, headers, config) {
+					$scope.error = data;
+				});
+			}
+      	}
+      </script>
+   </div>
+</div> <!-- /container -->
+   <hr/>
+      <h1>Sample code</h1>
+    <pre class="brush: xml">
+      &lt;script src=&quot;/vendor/jquery/jquery-2.0.3.min.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;/vendor/angularjs/angular.min.js&quot;&gt;&lt;/script&gt;
+      &lt;script&gt;
+
+      &lt;div ng-controller=&quot;loginCtrl&quot;&gt;
+		 &lt;div id=&quot;login-form&quot; ng-show=&quot;showLogin&quot;&gt;
+		 	&lt;div id=&quot;error&quot; class=&quot;alert alert-danger&quot; ng-show=&quot;error&quot;&gt;{{error}}&lt;/div&gt;
+	      &lt;form class=&quot;form-signin&quot; method=&quot;POST&quot; ng-submit=&quot;doLogin()&quot;&gt;
+	      	&lt;h2 class=&quot;form-signin-heading&quot;&gt;Please sign in&lt;/h2&gt;
+	        &lt;input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Email address&quot; ng-model=&quot;username&quot; name=&quot;username&quot; id=&quot;username&quot; required autofocus tabindex=&quot;1&quot;&gt;
+	        &lt;div class=&quot;control-group&quot;&gt;
+	          &lt;input type=&quot;password&quot; class=&quot;form-control&quot; placeholder=&quot;Password&quot; ng-model=&quot;password&quot; name=&quot;password&quot; id=&quot;password&quot; required tabindex=&quot;2&quot;&gt;
+	        &lt;/div&gt;
+	        &lt;button class=&quot;btn btn-primary&quot; type=&quot;submit&quot;&gt;Log in&lt;/button&gt;
+	      &lt;/form&gt;
+	     &lt;/div&gt;
+
+	     &lt;div class=&quot;text-center&quot; ng-hide=&quot;showLogin&quot;&gt;
+	     	&lt;button id=&quot;login-button&quot; class=&quot;btn btn-primary&quot; ng-click=&quot;displayLogin()&quot;&gt;Log in&lt;/button&gt;
+	     &lt;/div&gt;
+	     &lt;div class=&quot;text-center&quot;&gt;
+	     	&lt;div id=&quot;resultBox&quot; class=&quot;alert alert-info&quot; ng-show=&quot;user&quot;&gt;User = {{user}}&lt;/div&gt;
+	     &lt;/div&gt;
+	 &lt;/div&gt;
+    </pre>
+    <h2>Controller</h2>
+    <pre class="brush: jscript">
+        function loginCtrl($scope, $http){
+      		$scope.username = "";
+      		$scope.password = "";
+      		$scope.user = null;
+      		$scope.error = null;
+      		$scope.showLogin = false;
+
+      		$scope.displayLogin = function(){
+      			$scope.user = null;
+      			$scope.showLogin = true;
+      			$("#username").focus();
+      		}
+
+      		$scope.doLogin = function(){
+				$http.post('/example-3.5.html', {
+					username: $scope.username,
+					password: $scope.password
+				}, null).success(function(data, status, headers, config) {
+					$scope.user = data.id;
+					$scope.showLogin = false;
+					$scope.username = "";
+					$scope.password = "";
+					$scope.error = null;
+				}).
+				error(function(data, status, headers, config) {
+					$scope.error = data;
+				});
+			}
+      	}
+    </pre>
+    <pre class="brush: xml">
+      &lt;/script&gt;
+    </pre>
+<% include ../footer %>

@@ -1,0 +1,67 @@
+<% include ../header %>
+   <h2 class="text-center">Example 1.3: SHA hashing passwords</h2>
+    <% if(error) { %>
+    <div class="alert alert-danger text-center"><%= error %></div>
+    <% } %>
+      <form class="form-signin" method="POST">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" class="form-control" placeholder="Email address" name="username" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" name="password" required>
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+</div> <!-- /container -->
+      <hr/>
+      <h1>Sample code</h1>
+    <pre class="brush: jscript">
+var crypto    = require('crypto'),
+  authLib   = require('./auth-lib.js');
+
+// This is the in-memory users table
+var users = {
+  "joe": {
+    pw: "bb756580f63ca2838615cf4436fd4f812c57b5021d38ce639da52a0c292a465c",
+    salt: "usable security"
+  }
+};
+
+// This method illustrates the adding basic hashing
+// and per-user salting for passwords
+module.exports.authenticate = function(username, password){
+  if(users[username])
+  {
+    // there are various discussions
+    var hash = crypto.createHash('sha256');
+    // add plaintext password
+    hash.update(password + "", "utf8");
+    // add per-user salt
+    hash.update(users[username].salt + "", "utf8");
+    // conver the bytes into a string we can store in the db
+    var submittedPasswordHash = hash.digest("hex");
+    var actualPassword = users[username].pw;
+
+    // NEVER NEVER NEVER
+    // NEVER NEVER NEVER
+    // NEVER NEVER NEVER
+    // NEVER log passwords or security tokens
+    // This is here for the demo
+    console.log("Checking submitted password hash '" + submittedPasswordHash + "' with actual password hash '" + actualPassword + "'");
+
+    if(actualPassword &amp;&amp; submittedPasswordHash == actualPassword)
+    {
+      return authLib.LoginOK(username);
+    }
+    else
+    {
+      return authLib.BadPassword(username);
+    }
+  }
+  else
+  {
+    return authLib.BadUsername();
+  }
+}
+    </pre>
+<% include ../footer %>

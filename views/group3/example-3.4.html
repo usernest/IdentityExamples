@@ -1,0 +1,144 @@
+<% include ../header %>
+	 <h2 class="text-center">Example 3.4: jQuery UI login form</h2>
+	 <div id="login-form">
+	 	<div id="error" class="alert alert-danger"></div>
+      <form class="form-signin" method="POST">
+      	<h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" class="form-control" placeholder="Email address" name="username" id="username" required autofocus tabindex="1">
+        <div class="control-group">
+          <input type="password" class="form-control" placeholder="Password" name="password" id="password" required tabindex="2">
+        </div>
+      </form>
+     </div>
+
+     <div class="text-center">
+     	<button id="login-button" class="btn btn-primary">Log in</button>
+     </div>
+     <div class="text-center">
+     	<div id="resultBox" class="alert alert-info"></div>
+     </div>
+
+      <script src="/vendor/jquery/jquery-2.0.3.min.js"></script>
+      <script src="/vendor/jquery/ui/jquery-ui.min.js"></script>
+      <link rel="stylesheet" href="/vendor/jquery/ui/themes/base/jquery-ui.min.css"/>
+      <script>
+        $(document).ready(function(){
+			var	resultBox = $("#resultBox"),
+				error = $("#error"),
+				username = $( "#username" ),
+				password = $( "#password" ),
+				allFields = $( [] ).add( username ).add( password ).add( error );
+
+			resultBox.hide();
+
+			$("#login-form").dialog({
+				autoOpen: false,
+				height: '500',
+				width: '50%',
+				modal: true,
+				buttons: {
+					"Sign in": function() {
+						allFields.removeClass( "ui-state-error" );
+						var loginRequest = {
+							username: username.val(),
+							password: password.val()
+						};
+
+						// this in the jQuery callback gets changed
+						var dlg = this;
+
+						$.post('/example-3.4.html', loginRequest, null, 'json').then(function(result){
+							resultBox.show();
+							resultBox.html("User = " + result.id);
+							$( dlg ).dialog( "close" );
+						}).fail(function(err){
+							error.show();
+							error.html(err.responseText);
+						});
+					}
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				},
+				open: function(){
+					error.hide();
+				},
+				close: function() {
+					allFields.val( "" ).removeClass( "ui-state-error" );
+				}
+			});
+
+			$( "#login-button" )
+				.button()
+				.click(function() {
+					$( "#login-form" ).dialog( "open" );
+				});
+      	})
+      </script>
+      </div> <!-- /container -->
+       <hr/>
+      <h1>Sample code</h1>
+    <pre class="brush: xml">
+      &lt;script src=&quot;/vendor/jquery/jquery-2.0.3.min.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;/vendor/jquery/ui/jquery-ui.min.js&quot;&gt;&lt;/script&gt;
+      &lt;link rel=&quot;stylesheet&quot; href=&quot;/vendor/jquery/ui/themes/base/jquery-ui.min.css&quot;/&gt;
+      &lt;script&gt;
+    </pre>
+    <pre class="brush: jscript">
+        $(document).ready(function(){
+			var	resultBox = $("#resultBox"),
+				error = $("#error"),
+				username = $( "#username" ),
+				password = $( "#password" ),
+				allFields = $( [] ).add( username ).add( password ).add( error );
+
+			resultBox.hide();
+
+			$("#login-form").dialog({
+				autoOpen: false,
+				height: '500',
+				width: '50%',
+				modal: true,
+				buttons: {
+					"Sign in": function() {
+						allFields.removeClass( "ui-state-error" );
+						var loginRequest = {
+							username: username.val(),
+							password: password.val()
+						};
+
+						// this in the jQuery callback gets changed
+						var dlg = this;
+
+						$.post('/example-3.4.html', loginRequest, null, 'json').then(function(result){
+							resultBox.show();
+							resultBox.html("User = " + result.id);
+							$( dlg ).dialog( "close" );
+						}).fail(function(err){
+							error.show();
+							error.html(err.responseText);
+						});
+					}
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				},
+				open: function(){
+					error.hide();
+				},
+				close: function() {
+					allFields.val( "" ).removeClass( "ui-state-error" );
+				}
+			});
+
+			$( "#login-button" )
+				.button()
+				.click(function() {
+					$( "#login-form" ).dialog( "open" );
+				});
+      	})
+    </pre>
+    <pre class="brush: xml">
+      &lt;/script&gt;
+    </pre>
+<% include ../footer %>

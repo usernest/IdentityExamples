@@ -1,0 +1,86 @@
+<% include ../header %>
+	<h2 class="text-center">Example 4.2: Oauth v2 using Passport</h2>
+	<div class="text-center alert alert-info">Multiple organizations support Oauth2, such as Twitter, Google, and GitHub.  See a more complete list and the <a href="http://oauth.net/2/">official documentation.</a>  In this example we show the flow for GitHub using <a href="http://passportjs.org/">Passport</a> and <a href="https://github.com/jaredhanson/passport-github">Passport-GitHub</a></div>
+
+	<div class="text-center">
+		<form method="POST">
+			<a href="/auth/github" class="btn btn-primary">Log in with GitHub</a>
+		</form>
+	</div>
+	<% if (user){ %>
+	<div class="text-center">
+		<div id="resultBox" class="alert alert-info">User (from <%= user.provider%>) = <a href="<%=user.profileUrl%>"><%= user.username %></a></div>
+	</div>
+	<% } %>
+</div> <!-- /container -->
+<hr/>
+      <h1>Sample code</h1>
+      <i>This code is taken from the passport-github guide</i>
+    <pre class="brush: jscript">
+var app				= require('./common-app.js')(),
+	keysLib			= require('../lib/keys-lib.js'),
+	express 		= require('express'),
+	passport 		= require('passport'),
+	util 			= require('util'),
+	GitHubStrategy  = require('passport-github').Strategy;
+
+var keys = keysLib.getKeys();
+
+app.use(express.session({ secret: 'keyboard cat' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+	done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+	done(null, obj);
+});
+
+passport.use(new GitHubStrategy({
+		clientID: keys.github.clientId,
+		clientSecret: keys.github.clientSecret,
+		callbackURL: "http://localhost:3000/auth/github/callback"
+	},
+	function(accessToken, refreshToken, profile, done) {
+		// asynchronous verification, for effect...
+		process.nextTick(function() {
+
+			// To keep the example simple, the user's GitHub profile is returned to
+			// represent the logged-in user. In a typical application, you would want
+			// to associate the GitHub account with a user record in your database,
+			// and return that user instead.
+			//console.log("Got profile: ");
+			//console.log(profile);
+			return done(null, profile);
+		});
+	}
+));
+
+app.get('/auth/github',
+	passport.authenticate('github'),
+	function(req, res) {
+		// The request will be redirected to GitHub for authentication, so this
+		// function will not be called.
+	});
+
+app.get('/auth/github/callback',
+	passport.authenticate('github', {
+		failureRedirect: '/example-4.2.html'
+	}),
+	function(req, res) {
+		res.redirect('/example-4.2.html');
+	});
+
+app.get('/example-4.2.html',
+	function(req, res){
+	var bag = {
+		user : req.user,
+		error : null,
+		keys : keys
+	};
+	res.render('group4/example-4.2.html', bag);
+});
+    </pre>
+<% include ../footer %>

@@ -1,0 +1,56 @@
+<% include ../header %>
+   <h2 class="text-center">Example 1.2: Plaintext password handling</h2>
+    <% if(error) { %>
+    <div class="alert alert-danger text-center"><%= error %></div>
+    <% } %>
+      <form class="form-signin" method="POST">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" class="form-control" placeholder="Email address" name="username" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" name="password" required>
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+</div> <!-- /container -->
+      <hr/>
+      <h1>Sample code</h1>
+    <pre class="brush: jscript">
+// This is the in-memory users table
+var users = {
+  "joe": "jsconf"
+};
+
+// This method illustrates the 3 basic error conditions
+// of all password-based login attempts
+module.exports.authenticate = function(username, password){
+  if(users[username])
+  {
+    var actualPassword = users[username];
+
+    // NEVER NEVER NEVER
+    // NEVER NEVER NEVER
+    // NEVER NEVER NEVER
+    // NEVER log passwords or security tokens
+    // This is here for the demo
+    console.log("Checking submitted password '" + password + "' with actual password '" + actualPassword + "'");
+
+    // It is important to check that a user has a password
+    // Inadvertent nulls or empty passwords have caused havock
+    // to a few notable systems
+    if(actualPassword &amp;&amp; password == actualPassword)
+    {
+      return authLib.LoginOK(username);
+    }
+    else
+    {
+      return authLib.BadPassword(username);
+    }
+  }
+  else
+  {
+    return authLib.BadUsername();
+  }
+}
+    </pre>
+<% include ../footer %>

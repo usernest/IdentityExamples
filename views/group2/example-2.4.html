@@ -1,0 +1,52 @@
+<% include ../header %>
+	 <h2 class="text-center">Example 2.4: Throttling</h2>
+	  <% if(error) { %>
+		<div class="alert alert-danger text-center"><%= error %></div>
+	  <% } %>
+      <form class="form-signin" method="POST">
+      	<h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" class="form-control" placeholder="Email address" name="username" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" name="password" required>
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+      </div> <!-- /container -->
+      <hr/>
+      <h1>Sample code</h1>
+    <pre class="brush: jscript">
+// for the throttling examples in 2.4 and 2.5
+var lastRequest = null;
+var badCount = 0;
+var THROTTLE_TRIGGER = 3;
+var THROTTLE_COOLOFF_SECS = 5;
+
+if(!lastRequest)
+  lastRequest = moment();
+if(lastRequest.isBefore(moment().subtract({seconds : THROTTLE_COOLOFF_SECS})))
+  badCount = 0;
+lastRequest = moment();
+
+if(badCount >= THROTTLE_TRIGGER)
+{
+  res.render('group2/example-group2-lockout.html', bag);
+}
+else
+{
+  authLib.checkLogin(req, memoryHashed.authenticate, true, function(err, result){
+    if(err)
+    {
+      badCount++;
+      bag.error = err;
+      res.render('group2/example-2.4.html', bag);
+    }
+    else
+    {
+      bag.user = result;
+      res.render('group2/example-group2-success.html', bag);
+    }
+  });
+}
+    </pre>
+<% include ../footer %>

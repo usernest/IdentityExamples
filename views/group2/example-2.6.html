@@ -1,0 +1,46 @@
+<% include ../header %>
+	 <h2 class="text-center">Example 2.6: Validating Email Addresses</h2>
+	  <% if(email) { %>
+		<div class="alert alert-info text-center">Provided email: <%= email %></div>
+	  <% } %>
+    <% if(checks) {%>
+    <h3 class="text-center">Checks</h3>
+    <div class="alert alert-info text-center">
+      <ul>
+      <% checks.forEach(function(check, index, arr){ %>
+        <li><%= check.name %> = <%= check.passed %></li>
+      <% }) %>
+      </ul>
+    </div>
+    <% } %>
+      <form class="form-signin" method="POST">
+      	<h2 class="form-signin-heading">Test email</h2>
+        <input type="text" class="form-control" placeholder="Email address" name="username" required autofocus>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+      <div class="row text-center">
+      Try these addresses and look for their expected results:
+        <ul>
+          <li>valid@yahoo.com - Pass</li>
+          <li>valid+param@google.com - Pass</li>
+          <li>123456@google.com - Pass</li>
+          <li>invalid@invalid@google.com - Fail</li>
+          <li>invalid@example.com - Fail</li>
+          <li>invalid@mailinator.com - Fail</li>
+          <li>invalid@google.fake - Fail</li>
+        </ul>
+      </div>
+      </div> <!-- /container -->
+      <hr/>
+        <h2>Regexes</h2>
+    <pre class="brush: jscript">
+// http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
+var SIMPLE_REGEX = /\S+@\S+\.\S+/;
+// http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
+var SO_REGEX = /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+// http://www.regular-expressions.info/email.html
+var RFC2822_REGEX = /(?:[a-z0-9!#$%&'*+\/=?^_{|}~-]+(?:.[a-z0-9!#$%&'*+\/=?^_{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+var RFC2822_DOMAIN_FILTER = /[a-z0-9!#$%&'*+\/=?^_{|}~-]+(?:.[a-z0-9!#$%&'*+\/=?^_{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/;
+var DEVISE_REGEX = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/;
+    </pre>
+<% include ../footer %>

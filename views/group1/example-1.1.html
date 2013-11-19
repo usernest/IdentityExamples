@@ -1,0 +1,49 @@
+<% include ../header %>
+	 <h2 class="text-center">Example 1.1: Basic bootstrap form</h2>
+	  <% if(error) { %>
+		<div class="alert alert-danger text-center"><%= error %></div>
+	  <% } %>
+    <!-- taken from http://getbootstrap.com/examples/signin/ -->
+
+    <!-- Note, there is no METHOD defined for the form, so browser will default to GET -->
+      <form class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <!-- Note, the form parameters are not named -->
+        <input type="text" class="form-control" placeholder="Email address" name="username" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" name="password" required>
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+</div> <!-- /container -->
+      <hr/>
+      <h1>Sample code taken from Bootstrap</h1>
+    <pre class="brush: xml">
+&lt;!-- taken from http://getbootstrap.com/examples/signin/ --&gt;
+
+&lt;!-- Note, there is no METHOD defined for the form, so browser will default to GET --&gt;
+  &lt;form class=&quot;form-signin&quot;&gt;
+    &lt;h2 class=&quot;form-signin-heading&quot;&gt;Please sign in&lt;/h2&gt;
+    &lt;!-- Note, the form parameters are not named --&gt;
+    &lt;input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Email address&quot; name=&quot;username&quot; required autofocus&gt;
+    &lt;input type=&quot;password&quot; class=&quot;form-control&quot; placeholder=&quot;Password&quot; name=&quot;password&quot; required&gt;
+    &lt;label class=&quot;checkbox&quot;&gt;
+      &lt;input type=&quot;checkbox&quot; value=&quot;remember-me&quot;&gt; Remember me
+    &lt;/label&gt;
+    &lt;button class=&quot;btn btn-lg btn-primary btn-block&quot; type=&quot;submit&quot;&gt;Sign in&lt;/button&gt;
+  &lt;/form&gt;
+    </pre>
+    <h1>Small changes to work with servers</h1>
+    <pre class="brush: xml">
+&lt;form class=&quot;form-signin&quot; method=&quot;POST&quot;&gt;
+  &lt;h2 class=&quot;form-signin-heading&quot;&gt;Please sign in&lt;/h2&gt;
+  &lt;input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Email address&quot; name=&quot;username&quot; required autofocus&gt;
+  &lt;input type=&quot;password&quot; class=&quot;form-control&quot; placeholder=&quot;Password&quot; name=&quot;password&quot; required&gt;
+  &lt;label class=&quot;checkbox&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; value=&quot;remember-me&quot;&gt; Remember me
+  &lt;/label&gt;
+  &lt;button class=&quot;btn btn-lg btn-primary btn-block&quot; type=&quot;submit&quot;&gt;Sign in&lt;/button&gt;
+&lt;/form&gt;
+    </pre>
+<% include ../footer %>

@@ -1,0 +1,18 @@
+{
+  "name": "IdentityExamples",
+  "description": "Identity Examples for using JavaScript to authenticate",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.x",
+    "q" : "0.9.x",
+    "ejs" : "0.8.x",
+    "bcrypt-nodejs": "0.0.3",
+    "validator" : "1.5.x",
+    "zxcvbn" : "1.0.x",
+    "moment" : "2.4.x",
+    "passport":"0.1.x",
+    "passport-github":"0.1.x",
+    "request": "2.27.x"
+  }
+}

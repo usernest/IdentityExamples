@@ -1,0 +1,49 @@
+<% include ../header %>
+	 <h2 class="text-center">Example 3.2: Pass*Field demo</h2>
+    <div class="alert alert-info text-center">Give your users realtime feedback on password strength using <a href="http://antelle.github.io/passfield/index.html">Pass*Field</a></div>
+      <form class="form-signin" method="POST">
+      	<h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" class="form-control" placeholder="Email address" name="username" required autofocus tabindex="1">
+        <div class="control-group">
+          <input type="password" class="form-control" placeholder="Password" name="password" required tabindex="2">
+        </div>
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me" tabindex="3"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" tabindex="4">Sign in</button>
+      </form>
+
+      <script src="/vendor/jquery/jquery-2.0.3.min.js"></script>
+      <script src="/vendor/passfield/js/passfield.min.js"></script>
+      <link rel="stylesheet" href="/vendor/passfield/css/passfield.min.css"/>
+      <script>
+        $(document).ready(function(){
+
+          // With jQuery, it's easy to find password boxes
+          // with or without element ids
+          var passwordField = $("input[type='password']");
+          passwordField.passField();
+        })
+      </script>
+      </div> <!-- /container -->
+      <hr/>
+      <h1>Sample code</h1>
+    <pre class="brush: xml">
+      &lt;script src=&quot;/vendor/jquery/jquery-2.0.3.min.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;/vendor/passfield/js/passfield.min.js&quot;&gt;&lt;/script&gt;
+      &lt;link rel=&quot;stylesheet&quot; href=&quot;/vendor/passfield/css/passfield.min.css&quot;/&gt;
+      &lt;script&gt;
+    </pre>
+    <pre class="brush: jscript">
+        $(document).ready(function(){
+
+          // With jQuery, it's easy to find password boxes
+          // with or without element ids
+          var passwordField = $(&quot;input[type='password']&quot;);
+          passwordField.passField();
+        })
+    </pre>
+    <pre class="brush: xml">
+      &lt;/script&gt;
+    </pre>
+<% include ../footer %>

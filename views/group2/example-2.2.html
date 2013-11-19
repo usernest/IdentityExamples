@@ -1,0 +1,63 @@
+<% include ../header %>
+	 <h2 class="text-center">Example 2.2: CSRF</h2>
+	  <% if(error) { %>
+		<div class="alert alert-danger text-center"><%= error %></div>
+	  <% } %>
+      <form class="form-signin" method="POST">
+      	<h2 class="form-signin-heading">Please sign in (without CSRF token)</h2>
+        <input type="text" class="form-control" placeholder="Email address" name="username" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" name="password" required>
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+      
+      <form class="form-signin" method="POST">
+        <h2 class="form-signin-heading">Please sign in (with CSRF)</h2>
+        <input type="hidden" name="_csrf" value="<%= csrf %>"/>
+        <input type="text" class="form-control" placeholder="Email address" name="username" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" name="password" required>
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+</div> <!-- /container -->
+      <hr/>
+      <h1>Sample code</h1>
+    <pre class="brush: jscript">
+var app       = require('./common-app.js')(),
+    express   = require('express');
+
+app.get('/example-2.2.html',
+    express.cookieSession( {secret: 'UserNest'}),
+    express.csrf(),
+    function(req, res){
+    var bag = {
+      error: null
+    };
+
+    bag.csrf = req.csrfToken();
+
+    res.render('group2/example-2.2.html', bag);
+  });
+
+  app.post('/example-2.2.html',
+    express.cookieSession( {secret: 'UserNest'}),
+    express.csrf(),
+    function(req, res){
+      var bag = {
+        error: null
+      };
+
+      // ...
+    </pre>
+
+    <h2>Add a hidden field to forms called '_csrf'</h2>
+    <pre class="brush: xml">
+&lt;form class=&quot;form-signin&quot; method=&quot;POST&quot;&gt;
+  &lt;h2 class=&quot;form-signin-heading&quot;&gt;Please sign in (with CSRF)&lt;/h2&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;_csrf&quot; value=&quot;&lt;%= csrf %&gt;&quot;/&gt;
+    </pre>
+<% include ../footer %>
