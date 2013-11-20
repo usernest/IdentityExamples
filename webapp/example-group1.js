@@ -7,21 +7,27 @@ module.exports = function(){
 
 	app.get('/example-1.1.html', function(req, res){
 		var bag = {
-			error: null
+			error: null,
+			group : "group1",
+			basedir : app.basedir
 		};
 		res.render('group1/example-1.1.html', bag);
 	});
 
 	app.get('/example-1.2.html', function(req, res){
 		var bag = {
-			error: null
+			error: null,
+			group : "group1",
+			basedir : app.basedir
 		};
 		res.render('group1/example-1.2.html', bag);
 	});
 
 	app.post('/example-1.2.html', function(req, res){
 		var bag = {
-			error: null
+			error: null,
+			group : "group1",
+			basedir : app.basedir
 		};
 	
 		authLib.checkLogin(req, memoryPlain.authenticate, false, function(err, result){
@@ -40,14 +46,18 @@ module.exports = function(){
 
 	app.get('/example-1.3.html', function(req, res){
 		var bag = {
-			error: null
+			error: null,
+			group : "group1",
+			basedir : app.basedir
 		};
 		res.render('group1/example-1.3.html', bag);
 	});
 
 	app.post('/example-1.3.html', function(req, res){
 		var bag = {
-			error: null
+			error: null,
+			group : "group1",
+			basedir : app.basedir
 		};
 	
 		authLib.checkLogin(req, memoryHashed.authenticate, false, function(err, result){
@@ -66,14 +76,18 @@ module.exports = function(){
 
 	app.get('/example-1.4.html', function(req, res){
 		var bag = {
-			error: null
+			error: null,
+			group : "group1",
+			basedir : app.basedir
 		};
 		res.render('group1/example-1.4.html', bag);
 	});
 
 	app.post('/example-1.4.html', function(req, res){
 		var bag = {
-			error: null
+			error: null,
+			group : "group1",
+			basedir : app.basedir
 		};
 	
 		authLib.checkLogin(req, memoryBcrypt.authenticate, false, function(err, result){
@@ -92,14 +106,18 @@ module.exports = function(){
 
 	app.get('/example-1.5.html', function(req, res){
 		var bag = {
-			error: null
+			error: null,
+			group : "group1",
+			basedir : app.basedir
 		};
 		res.render('group1/example-1.5.html', bag);
 	});
 
 	app.post('/example-1.5.html', function(req, res){
 		var bag = {
-			error: null
+			error: null,
+			group : "group1",
+			basedir : app.basedir
 		};
 	
 		authLib.checkLogin(req, memoryBcrypt.authenticate, true, function(err, result){

@@ -18,7 +18,9 @@ module.exports = function(){
 
 	app.get('/example-2.1.html', function(req, res){
 		var bag = {
-			error: null
+			error: null,
+			group : "group2",
+			basedir : app.basedir
 		};
 
 		res.render('group2/example-2.1.html', bag);
@@ -26,7 +28,9 @@ module.exports = function(){
 
 	app.post('/example-2.1.html', function(req, res){
 		var bag = {
-			error: null
+			error: null,
+			group : "group2",
+			basedir : app.basedir
 		};
 
 		// In this demo, there is no SSL, the request will always fail
@@ -56,7 +60,9 @@ module.exports = function(){
 		express.csrf(),
 		function(req, res){
 		var bag = {
-			error: null
+			error: null,
+			group : "group2",
+			basedir : app.basedir
 		};
 
 		bag.csrf = req.csrfToken();
@@ -69,7 +75,9 @@ module.exports = function(){
 		express.csrf(),
 		function(req, res){
 			var bag = {
-				error: null
+				error: null,
+			group : "group2",
+			basedir : app.basedir
 			};
 
 			authLib.checkLogin(req, memoryHashed.authenticate, true, function(err, result){
@@ -90,7 +98,9 @@ module.exports = function(){
 	app.get('/example-2.3.html',
 		function(req, res){
 		var bag = {
-			error: null
+			error: null,
+			group : "group2",
+			basedir : app.basedir
 		};
 
 		res.render('group2/example-2.3.html', bag);
@@ -99,7 +109,9 @@ module.exports = function(){
 	app.post('/example-2.3.html',
 		function(req, res){
 			var bag = {
-				error: null
+				error: null,
+				group : "group2",
+				basedir : app.basedir
 			};
 
 			authLib.checkLogin(req, memoryHashed.authenticate, true, function(err, result){
@@ -120,7 +132,9 @@ module.exports = function(){
 	app.get('/example-2.4.html',
 		function(req, res){
 		var bag = {
-			error: null
+			error: null,
+			group : "group2",
+			basedir : app.basedir
 		};
 
 		res.render('group2/example-2.4.html', bag);
@@ -130,6 +144,8 @@ module.exports = function(){
 		function(req, res){
 			var bag = {
 				error: null,
+				group : "group2",
+				basedir : app.basedir
 			};
 
 			if(!lastRequest)
@@ -166,7 +182,9 @@ module.exports = function(){
 		var bag = {
 			error: null,
 			showCaptcha : badCount > THROTTLE_TRIGGER,
-			keys : keys
+			keys : keys,
+			group : "group2",
+			basedir : app.basedir
 		};
 
 		res.render('group2/example-2.5.html', bag);
@@ -177,7 +195,9 @@ module.exports = function(){
 			var bag = {
 				error: null,
 				showCaptcha : false,
-				keys : keys
+				keys : keys,
+				group : "group2",
+				basedir : app.basedir
 			};
 
 			if(!lastRequest)
@@ -235,7 +255,9 @@ module.exports = function(){
 		function(req, res){
 		var bag = {
 			email: null,
-			checks: null
+			checks: null,
+			group : "group2",
+			basedir : app.basedir
 		};
 
 		res.render('group2/example-2.6.html', bag);
@@ -252,7 +274,9 @@ var DEVISE_REGEX = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/;
 	app.post('/example-2.6.html',
 		function(req, res){
 			var bag = {
-				email: req.body.username
+				email: req.body.username,
+				group : "group2",
+				basedir : app.basedir
 			};
 
 			var checks = [];

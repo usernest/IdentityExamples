@@ -14,7 +14,9 @@ module.exports = function(){
 
 	app.get('/example-4.1.html', function(req, res){
 		var bag = {
-			keys : keys
+			keys : keys,
+			group : "group4",
+			basedir : app.basedir
 		}
 		res.render('group4/example-4.1.html', bag);
 	});
@@ -56,7 +58,9 @@ module.exports = function(){
 		var bag = {
 			user : req.user,
 			error : null,
-			keys : keys
+			keys : keys,
+			group : "group4",
+			basedir : app.basedir
 		};
 		res.render('group4/example-4.2.html', bag);
 	});

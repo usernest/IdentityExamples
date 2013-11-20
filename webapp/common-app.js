@@ -6,5 +6,7 @@ module.exports = function(){
 	app.set('view engine', 'ejs');
 	app.set('views', __dirname + '/../views');
 
+	app.basedir = "";
+
 	return app;
 };

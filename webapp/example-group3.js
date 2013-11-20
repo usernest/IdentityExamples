@@ -6,19 +6,39 @@ module.exports = function(){
 		memoryHashed	= require('../lib/memory-hashed.js');
 
 	app.get('/example-3.1.html', function(req, res){
-		res.render('group3/example-3.1.html');
+		var bag = {
+			error: null,
+			group : "group3",
+			basedir : app.basedir
+		};
+		res.render('group3/example-3.1.html', bag);
 	});
 
 	app.get('/example-3.2.html', function(req, res){
-		res.render('group3/example-3.2.html');
+		var bag = {
+			error: null,
+			group : "group3",
+			basedir : app.basedir
+		};
+		res.render('group3/example-3.2.html', bag);
 	});
 
 	app.get('/example-3.3.html', function(req, res){
-		res.render('group3/example-3.3.html');
+		var bag = {
+			error: null,
+			group : "group3",
+			basedir : app.basedir
+		};
+		res.render('group3/example-3.3.html', bag);
 	});
 
 	app.get('/example-3.4.html', function(req, res){
-		res.render('group3/example-3.4.html');
+		var bag = {
+			error: null,
+			group : "group3",
+			basedir : app.basedir
+		};
+		res.render('group3/example-3.4.html', bag);
 	});
 
 	app.post('/example-3.4.html', function(req, res){
@@ -35,7 +55,12 @@ module.exports = function(){
 	});
 
 	app.get('/example-3.5.html', function(req, res){
-		res.render('group3/example-3.5.html');
+		var bag = {
+			error: null,
+			group : "group3",
+			basedir : app.basedir
+		};
+		res.render('group3/example-3.5.html', bag);
 	});
 
 	app.post('/example-3.5.html', function(req, res){
