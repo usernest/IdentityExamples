@@ -38,3 +38,13 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+/* Please use non-blue text color for non-links in alerts, and underline links */
+
+.alert-info {
+  color: #333;
+}
+
+.alert-info a {
+  text-decoration: underline;
+}
